@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_app_btl/colors/colors.dart';
-import 'package:food_app_btl/home/food_page_body.dart';
+import 'package:food_app_btl/pages/home/food_page_body.dart';
 import 'package:food_app_btl/utils/dimensions.dart';
 import 'package:food_app_btl/widgets/big_text.dart';
 import 'package:food_app_btl/widgets/small_text.dart';
@@ -16,6 +16,7 @@ class _MainFoodPageState extends State<MainFoodPage> {
   @override
   Widget build(BuildContext context) {
     // print("current height is " + MediaQuery.of(context).size.height.toString());
+    // print("current height is " + MediaQuery.of(context).size.width.toString());
     return Scaffold(
         body: Column(
       children: [

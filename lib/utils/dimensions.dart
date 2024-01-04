@@ -5,6 +5,7 @@ class Dimensions {
   static double screenWidth = Get.context!.width;
 
   // screenHeight = 932
+  // screenWidth = 430.4
 
   // pageView=320
   static double pageView = screenHeight / 2.9125;
@@ -26,7 +27,9 @@ class Dimensions {
   static double width20 = screenHeight / 46.6;
   static double width30 = screenHeight / 31.067;
 
+  //font size
   static double font20 = screenHeight / 46.6;
+  static double font26 = screenHeight / 35.846;
 
   //radius
   static double radius15 = screenHeight / 62.13;
@@ -35,4 +38,15 @@ class Dimensions {
 
   //icon size
   static double iconSize24 = screenHeight / 38.83;
+  static double iconSize16 = screenHeight / 58.25;
+
+  //list view size
+  static double listViewImgSize = screenWidth / 3.5867;
+  static double listViewTextContSize = screenWidth / 4.304;
+
+  //popular food
+  static double popularFoodImgSize = 350;
+
+  //bottom height
+  static double bottomHeightBar = screenHeight / 7.77;
 }
