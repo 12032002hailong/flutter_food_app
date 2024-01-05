@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:food_app_btl/colors/colors.dart';
 import 'package:food_app_btl/pages/home/icon_and_text_widget.dart';
@@ -5,6 +7,7 @@ import 'package:food_app_btl/utils/dimensions.dart';
 import 'package:food_app_btl/widgets/app_column.dart';
 import 'package:food_app_btl/widgets/app_icon.dart';
 import 'package:food_app_btl/widgets/big_text.dart';
+import 'package:food_app_btl/widgets/expandable_text_widget.dart';
 import 'package:food_app_btl/widgets/small_text.dart';
 
 class PopularFoodDetail extends StatelessWidget {
@@ -16,6 +19,7 @@ class PopularFoodDetail extends StatelessWidget {
       backgroundColor: Colors.white,
       body: Stack(
         children: [
+          //background image
           Positioned(
             left: 0,
             right: 0,
@@ -28,6 +32,7 @@ class PopularFoodDetail extends StatelessWidget {
                       image: AssetImage("../../assets/image/food06.jpg"))),
             ),
           ),
+          //icon widgets
           Positioned(
             top: Dimensions.height45,
             left: Dimensions.width20,
@@ -40,6 +45,7 @@ class PopularFoodDetail extends StatelessWidget {
               ],
             ),
           ),
+          // introduction of food
           Positioned(
             left: 0,
             right: 0,
@@ -64,10 +70,21 @@ class PopularFoodDetail extends StatelessWidget {
                     SizedBox(
                       height: Dimensions.height20,
                     ),
-                    BigText(text: "Introduce")
+                    BigText(text: "Introduce"),
+                    SizedBox(
+                      height: Dimensions.height20,
+                    ),
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: ExpandableTextWidget(
+                            text:
+                                "For my Chicken Biryani recipe, I've simplified the preparation a bit by marinating the chicken in a spicy mixture of garam masala, garlic, ginger, chili peppers, coriander leaves, and garlic. When fried, the spices and aromatics on the exterior of the chicken caramelize into an insanely flavorful crust. I like to make the fried onions separately, as it allows you to fully caramelize them into a sweet umami-packed layer that contrasts the spicy, savory chicken. For the rice, a quick par-boil with whole spices like cardamom, bay leaves, and cumin infuses some flavor, while ensuring the rice is tender enough steam after the Biryani is assembled.For my Chicken Biryani recipe, I've simplified the preparation a bit by marinating the chicken in a spicy mixture of garam masala, garlic, ginger, chili peppers, coriander leaves, and garlic. When fried, the spices and aromatics on the exterior of the chicken caramelize into an insanely flavorful crust. I like to make the fried onions separately. "),
+                      ),
+                    )
                   ],
                 )),
           ),
+          //expandable text widget
         ],
       ),
       bottomNavigationBar: Container(
@@ -91,7 +108,7 @@ class PopularFoodDetail extends StatelessWidget {
             Container(
               padding: EdgeInsets.only(
                 top: Dimensions.height20,
-                bottom: Dimensions.height20,
+                bottom: Dimensions.height10,
                 right: Dimensions.width20,
                 left: Dimensions.width20,
               ),
@@ -114,7 +131,7 @@ class PopularFoodDetail extends StatelessWidget {
             Container(
               padding: EdgeInsets.only(
                 top: Dimensions.height20,
-                bottom: Dimensions.height20,
+                bottom: Dimensions.height10,
                 right: Dimensions.width20,
                 left: Dimensions.width20,
               ),
