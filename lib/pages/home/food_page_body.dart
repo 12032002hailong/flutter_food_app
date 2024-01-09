@@ -1,11 +1,15 @@
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
-import 'package:food_app_btl/colors/colors.dart';
+import 'package:food_app_btl/controllers/popular_product_controller.dart';
+import 'package:food_app_btl/models/products_model.dart';
+import 'package:food_app_btl/utils/app_constants.dart';
+import 'package:food_app_btl/utils/colors/colors.dart';
 import 'package:food_app_btl/pages/home/icon_and_text_widget.dart';
 import 'package:food_app_btl/utils/dimensions.dart';
 import 'package:food_app_btl/widgets/app_column.dart';
 import 'package:food_app_btl/widgets/big_text.dart';
 import 'package:food_app_btl/widgets/small_text.dart';
+import 'package:get/get.dart';
 
 class FoodPageBody extends StatefulWidget {
   const FoodPageBody({super.key});
@@ -34,28 +38,37 @@ class _FoodPageBodyState extends State<FoodPageBody> {
     return Column(
       children: [
         //slider section
-        Container(
-          height: Dimensions.pageView,
-          child: PageView.builder(
-            controller: pageController,
-            itemCount: 5,
-            itemBuilder: (context, position) {
-              return _buildPageItem(position);
-            },
-          ),
-        ),
+        GetBuilder<PopularProductController>(builder: (popularProducts) {
+          return Container(
+            height: Dimensions.pageView,
+            child: PageView.builder(
+              controller: pageController,
+              itemCount: popularProducts.popularProductList.length,
+              itemBuilder: (context, position) {
+                return _buildPageItem(
+                    position, popularProducts.popularProductList[position]);
+              },
+            ),
+          );
+        }),
 
         //dots
-        new DotsIndicator(
-          dotsCount: 5,
-          position: _currPageValue,
-          decorator: DotsDecorator(
-            activeColor: AppColors.mainColor,
-            size: const Size.square(9.0),
-            activeSize: const Size(18.0, 9.0),
-            activeShape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5.0)),
-          ),
+        GetBuilder<PopularProductController>(
+          builder: (popularProducts) {
+            return DotsIndicator(
+              dotsCount: popularProducts.popularProductList.isEmpty
+                  ? 1
+                  : popularProducts.popularProductList.length,
+              position: _currPageValue,
+              decorator: DotsDecorator(
+                activeColor: AppColors.mainColor,
+                size: const Size.square(9.0),
+                activeSize: const Size(18.0, 9.0),
+                activeShape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5.0)),
+              ),
+            );
+          },
         ),
 
         //Popular text
@@ -82,7 +95,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                 width: Dimensions.width10,
               ),
               Container(
-                margin: const EdgeInsets.only(bottom: 2),
+                margin: const EdgeInsets.only(bottom: 3),
                 child: SmallText(
                   text: 'Food pairing',
                 ),
@@ -92,6 +105,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
           ),
         ),
 
+        //list food image
         ListView.builder(
           physics: NeverScrollableScrollPhysics(),
           shrinkWrap: true,
@@ -177,7 +191,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
     );
   }
 
-  Widget _buildPageItem(int index) {
+  Widget _buildPageItem(int index, ProductModel popularProduct) {
     Matrix4 matrix = new Matrix4.identity();
     if (index == _currPageValue.floor()) {
       var currScale = 1 - (_currPageValue - index) * (1 - _scaleFactor);
@@ -212,20 +226,24 @@ class _FoodPageBodyState extends State<FoodPageBody> {
           margin: EdgeInsets.only(
               left: Dimensions.width10, right: Dimensions.width10),
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(Dimensions.radius30),
-              color: index.isEven ? Color(0xFF69c5df) : Color(0xFF9294cc),
-              image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: AssetImage("../../assets/image/food01.jpg"))),
+            borderRadius: BorderRadius.circular(Dimensions.radius30),
+            color: index.isEven ? Color(0xFF69c5df) : Color(0xFF9294cc),
+            image: DecorationImage(
+              fit: BoxFit.cover,
+              image: NetworkImage(
+                  AppConstants.BASE_URL + "/uploads/" + popularProduct.img!),
+            ),
+          ),
         ),
         Align(
           alignment: Alignment.bottomCenter,
           child: Container(
             height: Dimensions.pageViewTextContainer,
             margin: EdgeInsets.only(
-                left: Dimensions.width30,
-                right: Dimensions.width30,
-                bottom: Dimensions.height30),
+              left: Dimensions.width30,
+              right: Dimensions.width30,
+              bottom: Dimensions.height30,
+            ),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(Dimensions.radius20),
                 color: Colors.white,
@@ -244,9 +262,12 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                   )
                 ]),
             child: Container(
-              padding: EdgeInsets.only(top: 15, left: 15, right: 15),
+              padding: EdgeInsets.only(
+                left: 15,
+                right: 15,
+              ),
               child: AppColumn(
-                text: 'Chinese Side',
+                text: popularProduct.name!,
               ),
             ),
           ),
