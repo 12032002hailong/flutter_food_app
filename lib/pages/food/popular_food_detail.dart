@@ -1,6 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:food_app_btl/controllers/popular_product_controller.dart';
+import 'package:food_app_btl/pages/home/main_food_page.dart';
+import 'package:food_app_btl/utils/app_constants.dart';
 import 'package:food_app_btl/utils/colors/colors.dart';
 import 'package:food_app_btl/pages/home/icon_and_text_widget.dart';
 import 'package:food_app_btl/utils/dimensions.dart';
@@ -9,12 +12,18 @@ import 'package:food_app_btl/widgets/app_icon.dart';
 import 'package:food_app_btl/widgets/big_text.dart';
 import 'package:food_app_btl/widgets/expandable_text_widget.dart';
 import 'package:food_app_btl/widgets/small_text.dart';
+import 'package:get/get.dart';
 
 class PopularFoodDetail extends StatelessWidget {
-  const PopularFoodDetail({super.key});
+  int pageId;
+  PopularFoodDetail({Key? key, required this.pageId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var product =
+        Get.find<PopularProductController>().popularProductList[pageId];
+    // print("page id id" + pageId.toString());
+    // print("product name is " + product.name.toString());
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
@@ -29,7 +38,9 @@ class PopularFoodDetail extends StatelessWidget {
               decoration: BoxDecoration(
                   image: DecorationImage(
                       fit: BoxFit.cover,
-                      image: AssetImage("../../assets/image/food06.jpg"))),
+                      image: NetworkImage(AppConstants.BASE_URL +
+                          AppConstants.UPLOAD_URL +
+                          product.img!))),
             ),
           ),
           //icon widgets
@@ -40,7 +51,12 @@ class PopularFoodDetail extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                AppIcon(icon: Icons.arrow_back_ios),
+                GestureDetector(
+                  onTap: () {
+                    Get.to(() => MainFoodPage());
+                  },
+                  child: AppIcon(icon: Icons.arrow_back_ios),
+                ),
                 AppIcon(icon: Icons.shopping_cart_outlined),
               ],
             ),
@@ -66,7 +82,7 @@ class PopularFoodDetail extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    AppColumn(text: 'Chinese Side'),
+                    AppColumn(text: product.name!),
                     SizedBox(
                       height: Dimensions.height20,
                     ),
@@ -76,9 +92,7 @@ class PopularFoodDetail extends StatelessWidget {
                     ),
                     Expanded(
                       child: SingleChildScrollView(
-                        child: ExpandableTextWidget(
-                            text:
-                                "For my Chicken Biryani recipe, I've simplified the preparation a bit by marinating the chicken in a spicy mixture of garam masala, garlic, ginger, chili peppers, coriander leaves, and garlic. When fried, the spices and aromatics on the exterior of the chicken caramelize into an insanely flavorful crust. I like to make the fried onions separately, as it allows you to fully caramelize them into a sweet umami-packed layer that contrasts the spicy, savory chicken. For the rice, a quick par-boil with whole spices like cardamom, bay leaves, and cumin infuses some flavor, while ensuring the rice is tender enough steam after the Biryani is assembled.For my Chicken Biryani recipe, I've simplified the preparation a bit by marinating the chicken in a spicy mixture of garam masala, garlic, ginger, chili peppers, coriander leaves, and garlic. When fried, the spices and aromatics on the exterior of the chicken caramelize into an insanely flavorful crust. I like to make the fried onions separately. "),
+                        child: ExpandableTextWidget(text: product.description!),
                       ),
                     )
                   ],
