@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:food_app_btl/controllers/recommended_product_controller.dart';
 import 'package:food_app_btl/routes/route_helper.dart';
+import 'package:food_app_btl/utils/app_constants.dart';
 import 'package:food_app_btl/utils/colors/colors.dart';
 import 'package:food_app_btl/utils/dimensions.dart';
 import 'package:food_app_btl/widgets/app_icon.dart';
@@ -8,10 +10,14 @@ import 'package:food_app_btl/widgets/expandable_text_widget.dart';
 import 'package:get/get.dart';
 
 class RecommendedFoodDetail extends StatelessWidget {
-  const RecommendedFoodDetail({super.key});
+  final int pageId;
+
+  RecommendedFoodDetail({Key? key, required this.pageId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var product =
+        Get.find<RecommendedProductController>().recommendedProductList[pageId];
     return Scaffold(
       backgroundColor: Colors.white,
       body: CustomScrollView(
@@ -37,7 +43,7 @@ class RecommendedFoodDetail extends StatelessWidget {
                 child: Center(
                   child: BigText(
                     size: Dimensions.font26,
-                    text: "Sliver app bar",
+                    text: product.name!,
                   ),
                 ),
                 width: double.maxFinite,
@@ -53,10 +59,10 @@ class RecommendedFoodDetail extends StatelessWidget {
             ),
             pinned: true,
             backgroundColor: AppColors.yellowColor,
-            expandedHeight: 350,
+            expandedHeight: 300,
             flexibleSpace: FlexibleSpaceBar(
-              background: Image.asset(
-                "../../../assets/image/food07.jpg",
+              background: Image.network(
+                AppConstants.BASE_URL + AppConstants.UPLOAD_URL + product.img!,
                 width: double.maxFinite,
                 fit: BoxFit.cover,
               ),
@@ -66,9 +72,7 @@ class RecommendedFoodDetail extends StatelessWidget {
             child: Column(
               children: [
                 Container(
-                  child: ExpandableTextWidget(
-                      text:
-                          "For my Chicken Biryani recipe, I've simplified the preparation a bit by marinating the chicken in a spicy mixture of garam masala, garlic, ginger, chili peppers, coriander leaves, and garlic. When fried, the spices and aromatics on the exterior of the chicken caramelize into an insanely flavorful crust. I like to make the fried onions separately, as it allows you to fully caramelize them into a sweet umami-packed layer that contrasts the spicy, savory chicken. For the rice, a quick par-boil with whole spices like cardamom, bay leaves, and cumin infuses some flavor, while ensuring the rice is tender enough steam after the Biryani is assembled.For my Chicken Biryani recipe, I've simplified the preparation a bit by marinating the chicken in a spicy mixture of garam masala, garlic, ginger, chili peppers, coriander leaves, and garlic. When fried, the spices and aromatics on the exterior of the chicken caramelize into an insanely flavorful crust. I like to make the fried onions separately.For my Chicken Biryani recipe, I've simplified the preparation a bit by marinating the chicken in a spicy mixture of garam masala, garlic, ginger, chili peppers, coriander leaves, and garlic. When fried, the spices and aromatics on the exterior of the chicken caramelize into an insanely flavorful crust. I like to make the fried onions separately, as it allows you to fully caramelize them into a sweet umami-packed layer that contrasts the spicy, savory chicken. For the rice, a quick par-boil with whole spices like cardamom, bay leaves, and cumin infuses some flavor, while ensuring the rice is tender enough steam after the Biryani is assembled.For my Chicken Biryani recipe, I've simplified the preparation a bit by marinating the chicken in a spicy mixture of garam masala, garlic, ginger, chili peppers, coriander leaves, and garlic.For my Chicken Biryani recipe, I've simplified the preparation a bit by marinating the chicken in a spicy mixture of garam masala, garlic, ginger, chili peppers, coriander leaves, and garlic. When fried, the spices and aromatics on the exterior of the chicken caramelize into an insanely flavorful crust. I like to make the fried onions separately, as it allows you to fully caramelize them into a sweet umami-packed layer that contrasts the spicy, savory chicken. For the rice, a quick par-boil with whole spices like cardamom, bay leaves, and cumin infuses some flavor, while ensuring the rice is tender enough steam after the Biryani is assembled.For my Chicken Biryani recipe, I've simplified the preparation a bit by marinating the chicken in a spicy mixture of garam masala, garlic, ginger, chili peppers, coriander leaves, and garlic. When fried, the spices and aromatics on the exterior of the chicken caramelize into an insanely flavorful crust. I like to make the fried onions separately, as it allows you to fully caramelize them into a sweet umami-packed layer that contrasts the spicy, savory chicken. For the rice, a quick par-boil with whole spices like cardamom, bay leaves, and cumin infuses some flavor, while ensuring the rice is tender enough steam after the Biryani is assembled.For my Chicken Biryani recipe, I've simplified the preparation a bit by marinating the chicken in a spicy mixture of garam masala, garlic, ginger, chili peppers, coriander leaves, and garlic."),
+                  child: ExpandableTextWidget(text: product.description!),
                   margin: EdgeInsets.only(
                       left: Dimensions.width20, right: Dimensions.width20),
                 )
@@ -97,7 +101,7 @@ class RecommendedFoodDetail extends StatelessWidget {
                     size: Dimensions.font26,
                     icon: Icons.remove),
                 BigText(
-                  text: "\$12.88" + "X" + "0",
+                  text: "\$ ${product.price!}  X | 0",
                   color: AppColors.mainBlackColor,
                 ),
                 AppIcon(
