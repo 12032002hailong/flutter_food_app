@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_app_btl/controllers/popular_product_controller.dart';
 import 'package:food_app_btl/controllers/recommended_product_controller.dart';
+import 'package:food_app_btl/pages/cart/cart_page.dart';
 import 'package:food_app_btl/pages/food/popular_food_detail.dart';
 import 'package:food_app_btl/pages/food/recommended_food_detail.dart';
 import 'package:food_app_btl/pages/home/main_food_page.dart';
@@ -25,12 +26,12 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-
       home: MainFoodPage(),
       // home: PopularFoodDetail(),
       // home: RecommendedFoodDetail(),
       initialRoute: RouteHelper.initial,
       getPages: RouteHelper.routes,
+      // CartPage(),
     );
   }
 }

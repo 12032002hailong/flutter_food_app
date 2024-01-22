@@ -1,6 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:food_app_btl/data/repository/cart_repo.dart';
 import 'package:food_app_btl/models/cart_model.dart';
 import 'package:food_app_btl/models/products_model.dart';
+import 'package:food_app_btl/utils/colors/colors.dart';
 import 'package:get/get.dart';
 
 class CartController extends GetxController {
@@ -11,8 +13,10 @@ class CartController extends GetxController {
   Map<int, CartModel> get items => _items;
 
   void addItem(ProductModel product, int quantity) {
+    var totalQuantity = 0;
     if (_items.containsKey(product.id!)) {
       _items.update(product.id!, (value) {
+        totalQuantity = value.quantity! + quantity;
         return CartModel(
           id: value.id,
           name: value.name,
@@ -23,21 +27,33 @@ class CartController extends GetxController {
           time: DateTime.now().toString(),
         );
       });
+      if (totalQuantity <= 0) {
+        _items.remove(product.id);
+      }
     } else {
-      _items.putIfAbsent(
-        product.id!,
-        () {
-          return CartModel(
-            id: product.id,
-            name: product.name,
-            price: product.price,
-            img: product.img,
-            quantity: quantity,
-            isExist: true,
-            time: DateTime.now().toString(),
-          );
-        },
-      );
+      if (quantity > 0) {
+        _items.putIfAbsent(
+          product.id!,
+          () {
+            return CartModel(
+              id: product.id,
+              name: product.name,
+              price: product.price,
+              img: product.img,
+              quantity: quantity,
+              isExist: true,
+              time: DateTime.now().toString(),
+            );
+          },
+        );
+      } else {
+        Get.snackbar(
+          "Item count",
+          "You should at least add an item in the cart",
+          backgroundColor: AppColors.mainColor,
+          colorText: Colors.white,
+        );
+      }
     }
   }
 
@@ -58,5 +74,20 @@ class CartController extends GetxController {
       });
     }
     return quantity;
+  }
+
+  int get totalItems {
+    var totalQuantity = 0;
+    _items.forEach((key, value) {
+      totalQuantity += value.quantity!;
+    });
+
+    return totalQuantity;
+  }
+
+  List<CartModel> get getItems {
+    return _items.entries.map((e) {
+      return e.value;
+    }).toList();
   }
 }
