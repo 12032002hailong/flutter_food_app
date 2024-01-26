@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
       // home: RecommendedFoodDetail(),
       initialRoute: RouteHelper.initial,
       getPages: RouteHelper.routes,
-      // CartPage(),
+      // home: CartPage(),
     );
   }
 }
