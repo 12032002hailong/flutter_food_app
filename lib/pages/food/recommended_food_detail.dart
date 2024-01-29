@@ -26,112 +26,110 @@ class RecommendedFoodDetail extends StatelessWidget {
         .initProduct(product, Get.find<CartController>());
 
     return Scaffold(
-        backgroundColor: Colors.white,
-        body: CustomScrollView(
-          slivers: [
-            SliverAppBar(
-              automaticallyImplyLeading: false,
-              toolbarHeight: 70,
-              title: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  GestureDetector(
+      backgroundColor: Colors.white,
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            automaticallyImplyLeading: false,
+            toolbarHeight: 70,
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    if (page == "cartpage") {
+                      Get.toNamed(RouteHelper.getCartPage());
+                    } else {
+                      Get.toNamed(RouteHelper.getInitial());
+                    }
+                  },
+                  child: AppIcon(icon: Icons.clear),
+                ),
+                GetBuilder<PopularProductController>(builder: (controller) {
+                  return GestureDetector(
                     onTap: () {
-                      if (page == "cartpage") {
+                      if (controller.totalItems >= 1)
                         Get.toNamed(RouteHelper.getCartPage());
-                      } else {
-                        Get.toNamed(RouteHelper.getInitial());
-                      }
                     },
-                    child: AppIcon(icon: Icons.clear),
-                  ),
-                  GetBuilder<PopularProductController>(builder: (controller) {
-                    return GestureDetector(
-                      onTap: () {
-                        if (controller.totalItems >= 1)
-                          Get.toNamed(RouteHelper.getCartPage());
-                      },
-                      child: Stack(
-                        children: [
-                          AppIcon(icon: Icons.shopping_cart_outlined),
-                          Get.find<PopularProductController>().totalItems >= 1
-                              ? Positioned(
-                                  right: 0,
-                                  top: 0,
-                                  child: AppIcon(
-                                    icon: Icons.circle,
-                                    size: 20,
-                                    iconColor: Colors.transparent,
-                                    backgroundColor: AppColors.mainColor,
-                                  ),
-                                )
-                              : Container(),
-                          Get.find<PopularProductController>().totalItems >= 1
-                              ? Positioned(
-                                  right: 3,
-                                  top: 3,
-                                  child: BigText(
-                                    text: Get.find<PopularProductController>()
-                                        .totalItems
-                                        .toString(),
-                                    size: 12,
-                                    color: Colors.white,
-                                  ))
-                              : Container(),
-                        ],
-                      ),
-                    );
-                  })
-                ],
-              ),
-              bottom: PreferredSize(
-                preferredSize: Size.fromHeight(20),
-                child: Container(
-                  child: Center(
-                    child: BigText(
-                      size: Dimensions.font26,
-                      text: product.name!,
+                    child: Stack(
+                      children: [
+                        AppIcon(icon: Icons.shopping_cart_outlined),
+                        Get.find<PopularProductController>().totalItems >= 1
+                            ? Positioned(
+                                right: 0,
+                                top: 0,
+                                child: AppIcon(
+                                  icon: Icons.circle,
+                                  size: 20,
+                                  iconColor: Colors.transparent,
+                                  backgroundColor: AppColors.mainColor,
+                                ),
+                              )
+                            : Container(),
+                        Get.find<PopularProductController>().totalItems >= 1
+                            ? Positioned(
+                                right: 3,
+                                top: 3,
+                                child: BigText(
+                                  text: Get.find<PopularProductController>()
+                                      .totalItems
+                                      .toString(),
+                                  size: 12,
+                                  color: Colors.white,
+                                ))
+                            : Container(),
+                      ],
                     ),
+                  );
+                })
+              ],
+            ),
+            bottom: PreferredSize(
+              preferredSize: Size.fromHeight(20),
+              child: Container(
+                child: Center(
+                  child: BigText(
+                    size: Dimensions.font26,
+                    text: product.name!,
                   ),
-                  width: double.maxFinite,
-                  padding: EdgeInsets.only(top: 5, bottom: 10),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(Dimensions.radius20),
-                      topRight: Radius.circular(Dimensions.radius20),
-                    ),
+                ),
+                width: double.maxFinite,
+                padding: EdgeInsets.only(top: 5, bottom: 10),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(Dimensions.radius20),
+                    topRight: Radius.circular(Dimensions.radius20),
                   ),
                 ),
               ),
-              pinned: true,
-              backgroundColor: AppColors.yellowColor,
-              expandedHeight: 300,
-              flexibleSpace: FlexibleSpaceBar(
-                background: Image.network(
-                  AppConstants.BASE_URL +
-                      AppConstants.UPLOAD_URL +
-                      product.img!,
-                  width: double.maxFinite,
-                  fit: BoxFit.cover,
-                ),
+            ),
+            pinned: true,
+            backgroundColor: AppColors.yellowColor,
+            expandedHeight: 300,
+            flexibleSpace: FlexibleSpaceBar(
+              background: Image.network(
+                AppConstants.BASE_URL + AppConstants.UPLOAD_URL + product.img!,
+                width: double.maxFinite,
+                fit: BoxFit.cover,
               ),
             ),
-            SliverToBoxAdapter(
-              child: Column(
-                children: [
-                  Container(
-                    child: ExpandableTextWidget(text: product.description!),
-                    margin: EdgeInsets.only(
-                        left: Dimensions.width20, right: Dimensions.width20),
-                  )
-                ],
-              ),
+          ),
+          SliverToBoxAdapter(
+            child: Column(
+              children: [
+                Container(
+                  child: ExpandableTextWidget(text: product.description!),
+                  margin: EdgeInsets.only(
+                      left: Dimensions.width20, right: Dimensions.width20),
+                )
+              ],
             ),
-          ],
-        ),
-        bottomNavigationBar:
-            GetBuilder<PopularProductController>(builder: (controller) {
+          ),
+        ],
+      ),
+      bottomNavigationBar: GetBuilder<PopularProductController>(
+        builder: (controller) {
           return Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -232,6 +230,8 @@ class RecommendedFoodDetail extends StatelessWidget {
               ),
             ],
           );
-        }));
+        },
+      ),
+    );
   }
 }

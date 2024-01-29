@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_app_btl/utils/colors/colors.dart';
-import 'package:food_app_btl/pages/home/icon_and_text_widget.dart';
+import 'package:food_app_btl/widgets/icon_and_text_widget.dart';
 import 'package:food_app_btl/utils/dimensions.dart';
 import 'package:food_app_btl/widgets/big_text.dart';
 import 'package:food_app_btl/widgets/small_text.dart';

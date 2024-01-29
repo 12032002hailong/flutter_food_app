@@ -29,6 +29,7 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   dots_indicator: ^2.1.1
+  persistent_bottom_nav_bar: ^4.0.2
   get: 4.6.6
   flutter:
     sdk: flutter
