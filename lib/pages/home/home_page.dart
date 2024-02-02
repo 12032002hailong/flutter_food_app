@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:food_app_btl/pages/cart/cart_history.dart';
 import 'package:food_app_btl/pages/home/main_food_page.dart';
 import 'package:food_app_btl/utils/colors/colors.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
@@ -18,7 +19,7 @@ class _HomePageState extends State<HomePage> {
   List pages = [
     MainFoodPage(),
     Container(child: Center(child: Text("Next page "))),
-    Container(child: Center(child: Text("Next next page "))),
+    CartHistory(),
     Container(child: Center(child: Text("Next next next page "))),
   ];
 
@@ -27,50 +28,6 @@ class _HomePageState extends State<HomePage> {
       _selectedIndex = index;
     });
   }
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _controller = PersistentTabController(initialIndex: 0);
-  // }
-
-  // List<Widget> _buildScreens() {
-  //   return [
-  //     MainFoodPage(),
-  //     Container(child: Center(child: Text("Next page "))),
-  //     Container(child: Center(child: Text("Next next page "))),
-  //     Container(child: Center(child: Text("Next next next page "))),
-  //   ];
-  // }
-
-  // List<PersistentBottomNavBarItem> _navBarsItems() {
-  //   return [
-  //     PersistentBottomNavBarItem(
-  //       icon: Icon(CupertinoIcons.home),
-  //       title: ("Home"),
-  //       activeColorPrimary: CupertinoColors.activeBlue,
-  //       inactiveColorPrimary: CupertinoColors.systemGrey,
-  //     ),
-  //     PersistentBottomNavBarItem(
-  //       icon: Icon(CupertinoIcons.archivebox_fill),
-  //       title: ("Archive"),
-  //       activeColorPrimary: CupertinoColors.activeBlue,
-  //       inactiveColorPrimary: CupertinoColors.systemGrey,
-  //     ),
-  //     PersistentBottomNavBarItem(
-  //       icon: Icon(CupertinoIcons.cart_fill),
-  //       title: ("Cart"),
-  //       activeColorPrimary: CupertinoColors.activeBlue,
-  //       inactiveColorPrimary: CupertinoColors.systemGrey,
-  //     ),
-  //     PersistentBottomNavBarItem(
-  //       icon: Icon(CupertinoIcons.person),
-  //       title: ("Me"),
-  //       activeColorPrimary: CupertinoColors.activeBlue,
-  //       inactiveColorPrimary: CupertinoColors.systemGrey,
-  //     ),
-  //   ];
-  // }
 
   @override
   Widget build(BuildContext context) {
