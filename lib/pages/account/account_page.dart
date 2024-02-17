@@ -19,7 +19,7 @@ class AccountPage extends StatelessWidget {
     bool _userLoggedIn = Get.find<AuthController>().userLoggedIn();
     Get.find<UserController>().getUserInfo();
 
-    if (!_userLoggedIn) {
+    if (_userLoggedIn) {
       Get.find<UserController>().getUserInfo();
     }
     return Scaffold(
@@ -32,8 +32,8 @@ class AccountPage extends StatelessWidget {
       ),
       body: GetBuilder<UserController>(
         builder: (userController) {
-          return !_userLoggedIn
-              ? (userController.isLoading
+          return _userLoggedIn
+              ? (!userController.isLoading
                   ? Container(
                       width: double.maxFinite,
                       margin: EdgeInsets.only(top: Dimensions.height20),
@@ -64,7 +64,7 @@ class AccountPage extends StatelessWidget {
                                       size: Dimensions.height10 * 5,
                                     ),
                                     bigText: BigText(
-                                      text: userController.userModel.name,
+                                      text: userController.userModel.f_name,
                                     ),
                                   ),
                                   SizedBox(
@@ -138,21 +138,16 @@ class AccountPage extends StatelessWidget {
                                   //logout
                                   GestureDetector(
                                     onTap: () {
-                                      // if (Get.find<AuthController>().userLoggedIn()) {
-                                      //   Get.find<AuthController>().clearSharedData();
-                                      //   Get.find<CartController>().clear();
-                                      //   Get.find<CartController>().clearCartHistory();
-
-                                      //   Get.offNamed(RouteHelper.getSignInPage());
-                                      // }
-
-                                      Get.find<AuthController>()
-                                          .clearSharedData();
-                                      Get.find<CartController>().clear();
-                                      Get.find<CartController>()
-                                          .clearCartHistory();
-
-                                      Get.offNamed(RouteHelper.getSignInPage());
+                                      if (Get.find<AuthController>()
+                                          .userLoggedIn()) {
+                                        Get.find<AuthController>()
+                                            .clearSharedData();
+                                        Get.find<CartController>().clear();
+                                        Get.find<CartController>()
+                                            .clearCartHistory();
+                                        Get.offNamed(
+                                            RouteHelper.getSignInPage());
+                                      }
                                     },
                                     child: AccountWidget(
                                       appIcon: AppIcon(

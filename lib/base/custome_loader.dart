@@ -9,7 +9,6 @@ class CustomLoader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("Printing loading" + Get.find<AuthController>().isLoading.toString());
     return Center(
       child: Container(
         height: Dimensions.height20 * 5,

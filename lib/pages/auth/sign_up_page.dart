@@ -4,6 +4,7 @@ import 'package:food_app_btl/base/custome_loader.dart';
 import 'package:food_app_btl/base/show_custom_snackbar.dart';
 import 'package:food_app_btl/controllers/auth_controller.dart';
 import 'package:food_app_btl/models/signup_body_model.dart';
+import 'package:food_app_btl/pages/auth/sign_in_page.dart';
 import 'package:food_app_btl/routes/route_helper.dart';
 import 'package:food_app_btl/utils/colors/colors.dart';
 import 'package:food_app_btl/utils/dimensions.dart';
@@ -18,7 +19,7 @@ class SignUpPage extends StatelessWidget {
   Widget build(BuildContext context) {
     var emailController = TextEditingController();
     var passwordController = TextEditingController();
-    var nameController = TextEditingController();
+    var f_nameController = TextEditingController();
     var phoneController = TextEditingController();
     var singUpImages = [
       "t.png",
@@ -28,12 +29,12 @@ class SignUpPage extends StatelessWidget {
 
     void _registration(AuthController authController) {
       // var authController = Get.find<AuthController>();
-      String name = nameController.text.trim();
+      String f_name = f_nameController.text.trim();
       String phone = phoneController.text.trim();
       String email = emailController.text.trim();
       String password = passwordController.text.trim();
-      if (name.isEmpty) {
-        showCustomSnackBar("Type in your name", title: "Name");
+      if (f_name.isEmpty) {
+        showCustomSnackBar("Type in your full name", title: "Full name");
       } else if (phone.isEmpty) {
         showCustomSnackBar("Type in your phone number", title: "Phone number");
       } else if (email.isEmpty) {
@@ -50,7 +51,7 @@ class SignUpPage extends StatelessWidget {
       } else {
         showCustomSnackBar("All went well", title: "Perfect");
         SignUpBody signUpBody = SignUpBody(
-          name: name,
+          f_name: f_name,
           phone: phone,
           email: email,
           password: password,
@@ -106,10 +107,10 @@ class SignUpPage extends StatelessWidget {
                       SizedBox(
                         height: Dimensions.height20,
                       ),
-                      //name
+                      //f_name
                       AppTextField(
-                          textController: nameController,
-                          hintText: "Name",
+                          textController: f_nameController,
+                          hintText: "Full Name",
                           icon: Icons.person),
                       SizedBox(
                         height: Dimensions.height20,
@@ -157,6 +158,7 @@ class SignUpPage extends StatelessWidget {
                           ),
                         ),
                       ),
+
                       SizedBox(
                         height: Dimensions.screenHeight * 0.05,
                       ),
