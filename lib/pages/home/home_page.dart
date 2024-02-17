@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_app_btl/pages/account/account_page.dart';
+import 'package:food_app_btl/pages/auth/sign_in_page.dart';
 import 'package:food_app_btl/pages/auth/sign_up_page.dart';
 import 'package:food_app_btl/pages/cart/cart_history.dart';
 import 'package:food_app_btl/pages/home/main_food_page.dart';
@@ -20,7 +21,10 @@ class _HomePageState extends State<HomePage> {
 
   List pages = [
     MainFoodPage(),
-    SignUpPage(),
+    // SignInPage(),
+    Container(
+      child: Text("History page"),
+    ),
     CartHistory(),
     AccountPage(),
   ];
