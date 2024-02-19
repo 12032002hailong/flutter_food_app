@@ -175,8 +175,52 @@ class AccountPage extends StatelessWidget {
                   : CustomLoader())
               : Container(
                   child: Center(
-                    child: Text("You must login!"),
-                  ),
+                      child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: double.maxFinite,
+                        height: Dimensions.height20 * 16,
+                        margin: EdgeInsets.only(
+                          left: Dimensions.width20,
+                          right: Dimensions.width20,
+                        ),
+                        decoration: BoxDecoration(
+                            borderRadius:
+                                BorderRadius.circular(Dimensions.radius20),
+                            image: DecorationImage(
+                                fit: BoxFit.cover,
+                                image: AssetImage(
+                                    "assets/images/signintocontinue.jpg"))),
+                      ),
+                      SizedBox(height: Dimensions.height20),
+                      GestureDetector(
+                        onTap: () {
+                          Get.toNamed(RouteHelper.getSignInPage());
+                        },
+                        child: Container(
+                          width: double.maxFinite,
+                          height: Dimensions.height20 * 4,
+                          margin: EdgeInsets.only(
+                            left: Dimensions.width20,
+                            right: Dimensions.width20,
+                          ),
+                          decoration: BoxDecoration(
+                            color: AppColors.mainColor,
+                            borderRadius:
+                                BorderRadius.circular(Dimensions.radius20),
+                          ),
+                          child: Center(
+                            child: BigText(
+                              text: "Sign in",
+                              color: Colors.white,
+                              size: Dimensions.font26,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  )),
                 );
         },
       ),
