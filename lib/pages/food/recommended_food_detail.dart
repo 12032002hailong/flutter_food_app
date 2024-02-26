@@ -111,7 +111,7 @@ class RecommendedFoodDetail extends StatelessWidget {
               background: Image.network(
                 AppConstants.BASE_URL + AppConstants.UPLOAD_URL + product.img!,
                 // width: double.maxFinite,
-                width: 100,
+                width: Dimensions.width15 * 5,
                 height: 40,
                 fit: BoxFit.cover,
               ),
